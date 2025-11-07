@@ -1,17 +1,22 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '../contexts/LanguageContext';
+import { getTranslation } from '../translations/translations';
 
 const Hero = () => {
+  const { language } = useLanguage();
   const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
   const [currentBackgroundIndex, setCurrentBackgroundIndex] = useState(0);
 
+  const t = (key) => getTranslation(language, key);
+
   const popularSkills = [
-    'Web Design',
-    'UI/UX Design',
-    'Databases',
-    'Business Cards',
-    'Logo Design',
-    'Frontend Dev'
+    t('skills.webDesign'),
+    t('skills.uiUxDesign'),
+    t('skills.databases'),
+    t('skills.businessCards'),
+    t('skills.logoDesign'),
+    t('skills.frontendDev')
   ];
 
   const trustedAvatars = [
@@ -29,8 +34,8 @@ const Hero = () => {
       handle: '@jenny',
       role: 'UI/UX Designer',
       avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Jenny',
-      projects: '80+ projects completed',
-      rate: '$30 per hour',
+      projects: 80,
+      rate: 30,
       avatarSrc: 'jenny-avatar.png'
     },
     {
@@ -38,8 +43,8 @@ const Hero = () => {
       handle: '@michael',
       role: 'Full Stack Developer',
       avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Michael',
-      projects: '120+ projects completed',
-      rate: '$45 per hour',
+      projects: 120,
+      rate: 45,
       avatarSrc: 'michael-avatar.png'
     },
     {
@@ -47,8 +52,8 @@ const Hero = () => {
       handle: '@sarah',
       role: 'Brand Designer',
       avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah',
-      projects: '95+ projects completed',
-      rate: '$35 per hour',
+      projects: 95,
+      rate: 35,
       avatarSrc: 'sarah-avatar.png'
     },
     {
@@ -56,8 +61,8 @@ const Hero = () => {
       handle: '@david',
       role: 'Marketing Specialist',
       avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=David',
-      projects: '150+ projects completed',
-      rate: '$40 per hour',
+      projects: 150,
+      rate: 40,
       avatarSrc: 'david-avatar.png'
     },
   ];
@@ -203,10 +208,10 @@ const Hero = () => {
                   className="text-center md:text-left"
                 >
                   <h2 className="text-[20px] sm:text-[22px] md:text-[24px] lg:text-[28px] font-bold text-white leading-snug" style={{ fontFamily: 'Inter, Poppins, system-ui, sans-serif', fontWeight: 700 }}>
-                    What service are you looking for today?
+                    {t('hero.headline')}
                   </h2>
                   <p className="mt-2 text-[14px] sm:text-[15px] md:text-[16px] text-[#CCCCCC] leading-relaxed">
-                    Find experts in design, development, and more across the world.
+                    {t('hero.subheadline')}
                   </p>
                 </motion.div>
 
@@ -232,7 +237,7 @@ const Hero = () => {
                     <div className="flex-1 relative group">
                       <input
                         type="text"
-                        placeholder="Search for any services…"
+                        placeholder={t('hero.searchPlaceholder')}
                         className="w-full h-full outline-none text-[#2D2D2D] placeholder:text-[#7A7A7A] text-base bg-transparent"
                       />
                       <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#F7941D] scale-x-0 transition-transform duration-300 origin-left group-focus-within:scale-x-100"></div>
@@ -296,7 +301,7 @@ const Hero = () => {
                   transition={{ delay: 0.4, duration: 0.4 }}
                   className="text-base md:text-lg text-[#CCCCCC] leading-relaxed max-w-xl"
                 >
-                  Connect businesses with talented freelancers worldwide. Find the perfect match for your project or showcase your skills to global clients.
+                  {t('hero.description')}
                 </motion.p>
 
                 {/* Trusted Freelancers Card */}
@@ -321,7 +326,7 @@ const Hero = () => {
                   
                   {/* Label */}
                   <div className="flex-1">
-                    <div className="text-sm font-semibold text-[#2D2D2D]">Trusted Freelancers</div>
+                    <div className="text-sm font-semibold text-[#2D2D2D]">{t('hero.trustedFreelancers')}</div>
                   </div>
                   
                   {/* Rating & Stats */}
@@ -333,7 +338,7 @@ const Hero = () => {
                         </svg>
                       ))}
                     </div>
-                    <span className="text-xs text-[#7A7A7A] whitespace-nowrap">200+ Satisfied</span>
+                    <span className="text-xs text-[#7A7A7A] whitespace-nowrap">200+ {t('hero.satisfied')}</span>
                   </div>
                 </motion.div>
               </div>
@@ -387,13 +392,13 @@ const Hero = () => {
                   }}
                 >
                   <div className="text-center">
-                    <div className="text-xs font-semibold text-white mb-1">DISCOVER</div>
+                    <div className="text-xs font-semibold text-white mb-1">{t('hero.discover')}</div>
                     <div className="w-8 h-8 mx-auto bg-white rounded-full flex items-center justify-center">
                       <svg className="w-4 h-4 text-[#F7941D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                       </svg>
                     </div>
-                    <div className="text-xs font-semibold text-white mt-1">MORE</div>
+                    <div className="text-xs font-semibold text-white mt-1">{t('hero.more')}</div>
                   </div>
                 </motion.div>
 
@@ -438,7 +443,7 @@ const Hero = () => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                           </svg>
                         </div>
-                        <span>{freelancerProfiles[currentProfileIndex].projects}</span>
+                        <span>{freelancerProfiles[currentProfileIndex].projects}+ {t('hero.projectsCompleted')}</span>
                       </div>
                       
                       {/* Row 3: Hourly Rate */}
@@ -449,7 +454,7 @@ const Hero = () => {
                           </svg>
                         </div>
                         <span className="font-semibold text-[#F7941D]">
-                          {freelancerProfiles[currentProfileIndex].rate}
+                          ${freelancerProfiles[currentProfileIndex].rate} {t('hero.perHour')}
                         </span>
                       </div>
                     </motion.div>
