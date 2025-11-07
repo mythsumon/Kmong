@@ -4,12 +4,26 @@
 
 @layer base {
   * {
-    @apply border-gray-line;
+    @apply border-border;
   }
   
   body {
-    @apply bg-white text-[#2D2D2D] font-sans antialiased;
+    @apply bg-background text-body font-sans antialiased;
     font-family: 'Noto Sans KR', 'Pretendard', system-ui, sans-serif;
+  }
+  
+  /* Custom cursor with smooth transition */
+  * {
+    cursor: default;
+    transition: all 0.25s ease;
+  }
+  
+  a, button {
+    cursor: pointer;
+  }
+  
+  a:hover, button:hover {
+    filter: brightness(1.05);
   }
 }
 
@@ -24,49 +38,47 @@
 
 @layer utilities {
   .gradient-underline {
-    background-image: linear-gradient(to right, #F7941D, #E57C00);
+    background-image: linear-gradient(to right, #4F9FFF, #7C83FD);
     background-size: 100% 2px;
     background-repeat: no-repeat;
     background-position: bottom;
     padding-bottom: 4px;
-    transition: background-size 0.3s ease;
+    transition: background-size 0.25s ease;
   }
   
   .gradient-underline:hover {
     background-size: 100% 2px;
+    box-shadow: 0 2px 8px rgba(79, 159, 255, 0.25);
   }
   
   .hover-lift {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
   
   .hover-lift:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(247, 148, 29, 0.2);
+    box-shadow: 0 8px 24px rgba(79, 159, 255, 0.15);
   }
   
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: thin;
+  .btn-primary {
+    @apply bg-gradient-accent text-white rounded-custom px-6 py-3 font-medium;
+    transition: all 0.25s ease;
   }
   
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
+  .btn-primary:hover {
+    box-shadow: 0 0 20px rgba(79, 159, 255, 0.4);
+    transform: translateY(-2px);
   }
   
-  .scrollbar-hide::-webkit-scrollbar-track {
-    background: transparent;
+  .card-surface {
+    @apply bg-surface rounded-custom border border-border shadow-soft;
+    transition: all 0.25s ease;
   }
   
-  .scrollbar-hide::-webkit-scrollbar-thumb {
-    background: rgba(247, 148, 29, 0.3);
-    border-radius: 4px;
+  .card-surface:hover {
+    box-shadow: 0 4px 16px rgba(79, 159, 255, 0.12);
   }
   
-  .scrollbar-hide::-webkit-scrollbar-thumb:hover {
-    background: rgba(247, 148, 29, 0.5);
-  }
-
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -76,6 +88,18 @@
     display: none;
     width: 0;
     height: 0;
+  }
+  
+  .text-gradient {
+    background: linear-gradient(135deg, #4F9FFF 0%, #7C83FD 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .backdrop-blur-custom {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 }
 

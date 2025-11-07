@@ -117,19 +117,23 @@ const Hero = () => {
   }, [heroBackgrounds.length]);
 
   return (
-    <section className="relative w-full h-screen flex items-center justify-center bg-black overflow-hidden pt-20">
+    <section className="relative w-full h-screen flex items-center justify-center bg-background overflow-hidden pt-20" style={{
+      background: 'linear-gradient(135deg, rgba(79,159,255,0.05) 0%, rgba(124,131,253,0.08) 100%), #F8FAFF'
+    }}>
       {/* Main Hero Card Container */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="w-full h-full shadow-2xl overflow-hidden relative"
+        className="w-full h-full overflow-hidden relative"
         style={{
-          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.12), 0 8px 24px rgba(0, 0, 0, 0.08)'
+          boxShadow: '0 4px 16px rgba(79, 159, 255, 0.08)'
         }}
       >
         {/* Background Slider */}
-        <div className="absolute inset-0 overflow-hidden bg-black">
+        <div className="absolute inset-0 overflow-hidden" style={{
+          background: 'linear-gradient(135deg, rgba(79,159,255,0.08) 0%, rgba(124,131,253,0.12) 100%)'
+        }}>
           <AnimatePresence mode="wait">
             <motion.div
               key={currentBackgroundIndex}
@@ -137,7 +141,10 @@ const Hero = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 1.2, ease: 'easeInOut' }}
-              className="absolute inset-0 bg-black"
+              className="absolute inset-0"
+              style={{
+                background: 'linear-gradient(135deg, rgba(79,159,255,0.08) 0%, rgba(124,131,253,0.12) 100%)'
+              }}
             >
               {/* Background Image */}
               {heroBackgrounds[currentBackgroundIndex].image && (
@@ -148,14 +155,15 @@ const Hero = () => {
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
+                    opacity: 0.15
                   }}
                 />
               )}
-              {/* Dark Gradient Overlay */}
+              {/* Cool Gradient Overlay */}
               <div
                 className="absolute inset-0"
                 style={{
-                  background: 'linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.7) 100%)',
+                  background: 'linear-gradient(135deg, rgba(248,250,255,0.95) 0%, rgba(233,238,255,0.95) 100%)',
                 }}
               />
             </motion.div>
@@ -168,11 +176,16 @@ const Hero = () => {
             <button
               key={index}
               onClick={() => setCurrentBackgroundIndex(index)}
-              className={`w-2 h-8 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#9BB3AE] ${
+              className={`w-2 h-8 rounded-full transition-all duration-smooth focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
                 index === currentBackgroundIndex 
-                  ? 'bg-white h-10' 
-                  : 'bg-white/40 hover:bg-white/60'
+                  ? 'h-10' 
+                  : 'hover:bg-secondary/60'
               }`}
+              style={{
+                background: index === currentBackgroundIndex 
+                  ? 'linear-gradient(135deg, #4F9FFF 0%, #7C83FD 100%)'
+                  : 'rgba(79,159,255,0.3)'
+              }}
               aria-label={`Switch to background ${index + 1}`}
             />
           ))}
@@ -186,12 +199,14 @@ const Hero = () => {
             <div className="relative z-10">
               {/* Large Background Word */}
               <div 
-                className="absolute -top-8 -left-4 lg:-top-12 lg:-left-8 opacity-10 pointer-events-none select-none"
+                className="absolute -top-8 -left-4 lg:-top-12 lg:-left-8 opacity-5 pointer-events-none select-none"
                 style={{
                   fontSize: 'clamp(96px, 12vw, 192px)',
                   fontWeight: 100,
                   letterSpacing: '0.02em',
-                  color: '#ffffff',
+                  background: 'linear-gradient(135deg, #4F9FFF 0%, #7C83FD 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
                   fontFamily: 'system-ui, sans-serif'
                 }}
               >
@@ -207,10 +222,10 @@ const Hero = () => {
                   transition={{ delay: 0.0, duration: 0.3 }}
                   className="text-center md:text-left"
                 >
-                  <h2 className="text-[20px] sm:text-[22px] md:text-[24px] lg:text-[28px] font-bold text-white leading-snug" style={{ fontFamily: 'Inter, Poppins, system-ui, sans-serif', fontWeight: 700 }}>
+                  <h2 className="text-[20px] sm:text-[22px] md:text-[24px] lg:text-[28px] font-bold text-headline leading-snug" style={{ fontFamily: 'Inter, Poppins, system-ui, sans-serif', fontWeight: 700 }}>
                     {t('hero.headline')}
                   </h2>
-                  <p className="mt-2 text-[14px] sm:text-[15px] md:text-[16px] text-[#CCCCCC] leading-relaxed">
+                  <p className="mt-2 text-[14px] sm:text-[15px] md:text-[16px] text-body leading-relaxed">
                     {t('hero.subheadline')}
                   </p>
                 </motion.div>
@@ -222,13 +237,13 @@ const Hero = () => {
                   transition={{ delay: 0.1, duration: 0.4 }}
                   className="relative"
                 >
-                  {/* Orange Glow Behind Search Bar */}
-                  <div className="absolute -inset-2 bg-[#F7941D] opacity-20 blur-2xl rounded-full -z-10"></div>
+                  {/* Cool-tone Glow Behind Search Bar */}
+                  <div className="absolute -inset-2 bg-primary opacity-15 blur-2xl rounded-full -z-10"></div>
                   
-                  <div className="flex items-center bg-white rounded-[12px] h-14 overflow-hidden border-2 border-[#F7941D] relative" style={{ boxShadow: '0 4px 10px rgba(247, 148, 29, 0.2)' }}>
+                  <div className="flex items-center bg-surface rounded-custom h-14 overflow-hidden border-2 border-primary relative" style={{ boxShadow: '0 4px 12px rgba(79, 159, 255, 0.15)' }}>
                     {/* Search Icon */}
                     <div className="pl-5 pr-3 flex-shrink-0">
-                      <svg className="w-5 h-5 text-[#F7941D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                       </svg>
                     </div>
@@ -238,27 +253,32 @@ const Hero = () => {
                       <input
                         type="text"
                         placeholder={t('hero.searchPlaceholder')}
-                        className="w-full h-full outline-none text-[#2D2D2D] placeholder:text-[#7A7A7A] text-base bg-transparent"
+                        className="w-full h-full outline-none text-headline placeholder:text-muted text-base bg-transparent"
                       />
-                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#F7941D] scale-x-0 transition-transform duration-300 origin-left group-focus-within:scale-x-100"></div>
+                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-accent scale-x-0 transition-transform duration-300 origin-left group-focus-within:scale-x-100" style={{
+                        background: 'linear-gradient(135deg, #4F9FFF 0%, #7C83FD 100%)'
+                      }}></div>
                     </div>
                     
                     {/* Right Utilities */}
                     <div className="flex items-center gap-2 pr-2">
                       {/* Voice/Mic Icon */}
                       <button
-                        className="p-2 rounded-full hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-[#F7941D] focus:ring-offset-2"
+                        className="p-2 rounded-full hover:bg-primary/10 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                         aria-label="Voice search"
                       >
-                        <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5 text-muted hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
                         </svg>
                       </button>
                       
                       {/* Go/Arrow Button */}
                       <motion.button
-                        className="h-10 w-10 rounded-[12px] bg-[#F7941D] text-white flex items-center justify-center hover:bg-[#E57C00] transition-colors focus:outline-none focus:ring-2 focus:ring-[#F7941D] focus:ring-offset-2"
-                        whileHover={{ scale: 1.05, y: -2 }}
+                        className="h-10 w-10 rounded-custom text-white flex items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                        style={{
+                          background: 'linear-gradient(135deg, #4F9FFF 0%, #7C83FD 100%)'
+                        }}
+                        whileHover={{ scale: 1.05, y: -2, boxShadow: '0 0 20px rgba(79, 159, 255, 0.4)' }}
                         whileTap={{ scale: 0.95 }}
                         animate={{ scale: [1, 1.05, 1] }}
                         transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
@@ -285,8 +305,15 @@ const Hero = () => {
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.25 + index * 0.05, duration: 0.3 }}
-                      className="px-4 py-2 rounded-full bg-white text-sm text-black border-2 border-[#F7941D] hover:bg-[#F7941D] hover:text-white transition-all focus:outline-none focus:ring-2 focus:ring-[#F7941D] focus:ring-offset-2"
-                      whileHover={{ scale: 1.05 }}
+                      className="px-4 py-2 rounded-custom bg-surface text-sm text-headline border-2 border-primary hover:text-white transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                      style={{
+                        boxShadow: '0 2px 8px rgba(79, 159, 255, 0.08)'
+                      }}
+                      whileHover={{ 
+                        scale: 1.05,
+                        background: 'linear-gradient(135deg, #4F9FFF 0%, #7C83FD 100%)',
+                        boxShadow: '0 0 20px rgba(79, 159, 255, 0.25)'
+                      }}
                       whileTap={{ scale: 0.95 }}
                     >
                       {skill}
@@ -299,7 +326,7 @@ const Hero = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4, duration: 0.4 }}
-                  className="text-base md:text-lg text-[#CCCCCC] leading-relaxed max-w-xl"
+                  className="text-base md:text-lg text-body leading-relaxed max-w-xl"
                 >
                   {t('hero.description')}
                 </motion.p>
@@ -309,7 +336,10 @@ const Hero = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 0.4 }}
-                  className="bg-white rounded-2xl p-4 shadow-md border border-gray-line flex items-center gap-4"
+                  className="bg-surface rounded-custom p-4 border border-border flex items-center gap-4"
+                  style={{
+                    boxShadow: '0 4px 12px rgba(79, 159, 255, 0.08)'
+                  }}
                 >
                   {/* Avatar Group */}
                   <div className="flex -space-x-2">
@@ -326,19 +356,19 @@ const Hero = () => {
                   
                   {/* Label */}
                   <div className="flex-1">
-                    <div className="text-sm font-semibold text-[#2D2D2D]">{t('hero.trustedFreelancers')}</div>
+                    <div className="text-sm font-semibold text-headline">{t('hero.trustedFreelancers')}</div>
                   </div>
                   
                   {/* Rating & Stats */}
                   <div className="flex items-center gap-2">
                     <div className="flex items-center gap-1">
                       {[...Array(5)].map((_, i) => (
-                        <svg key={i} className="w-4 h-4 text-[#F7941D]" fill="currentColor" viewBox="0 0 20 20">
+                        <svg key={i} className="w-4 h-4 text-warning" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                       ))}
                     </div>
-                    <span className="text-xs text-[#7A7A7A] whitespace-nowrap">200+ {t('hero.satisfied')}</span>
+                    <span className="text-xs text-muted whitespace-nowrap">200+ {t('hero.satisfied')}</span>
                   </div>
                 </motion.div>
               </div>
@@ -355,20 +385,21 @@ const Hero = () => {
               >
                 {/* Placeholder Image Container */}
                 <div 
-                  className="relative w-full max-w-[400px] h-full rounded-2xl overflow-hidden shadow-2xl"
+                  className="relative w-full max-w-[400px] h-full rounded-custom overflow-hidden"
                   data-image-src="model-beanbag.png"
                   style={{
-                    background: 'linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%)',
+                    background: 'linear-gradient(135deg, rgba(79,159,255,0.1) 0%, rgba(124,131,253,0.15) 100%)',
+                    boxShadow: '0 8px 24px rgba(79, 159, 255, 0.15)'
                   }}
                 >
                   {/* Placeholder Content */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center">
-                      <svg className="w-32 h-32 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-32 h-32 mx-auto text-primary/40 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                       </svg>
-                      <p className="text-gray-500 text-sm">Model Photo</p>
-                      <p className="text-gray-400 text-xs mt-1">(Replace with PNG cutout)</p>
+                      <p className="text-body text-sm">Model Photo</p>
+                      <p className="text-muted text-xs mt-1">(Replace with PNG cutout)</p>
                     </div>
                   </div>
                 </div>
@@ -384,17 +415,18 @@ const Hero = () => {
                     delay: 0.6, 
                     duration: 0.4 
                   }}
-                  className="absolute top-8 left-4 lg:top-12 lg:left-8 w-24 h-24 rounded-full bg-gradient-to-br from-[#F7941D] to-[#E57C00] backdrop-blur-sm border-2 border-white/50 flex items-center justify-center shadow-lg"
+                  className="absolute top-8 left-4 lg:top-12 lg:left-8 w-24 h-24 rounded-full backdrop-blur-sm border-2 border-surface flex items-center justify-center"
                   style={{
                     animation: 'rotate 10s linear infinite',
                     animationDelay: '0.6s',
-                    boxShadow: '0 4px 12px rgba(247, 148, 29, 0.4)'
+                    background: 'linear-gradient(135deg, #4F9FFF 0%, #7C83FD 100%)',
+                    boxShadow: '0 4px 16px rgba(79, 159, 255, 0.3)'
                   }}
                 >
                   <div className="text-center">
                     <div className="text-xs font-semibold text-white mb-1">{t('hero.discover')}</div>
-                    <div className="w-8 h-8 mx-auto bg-white rounded-full flex items-center justify-center">
-                      <svg className="w-4 h-4 text-[#F7941D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-8 h-8 mx-auto bg-surface rounded-full flex items-center justify-center">
+                      <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                       </svg>
                     </div>
@@ -416,29 +448,33 @@ const Hero = () => {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -10, scale: 0.95 }}
                       transition={{ duration: 0.3 }}
-                      className="bg-[#000000] rounded-2xl p-4 shadow-xl border border-[rgba(255,255,255,0.1)]"
+                      className="bg-surface rounded-custom p-4 border border-border"
+                      style={{
+                        boxShadow: '0 8px 24px rgba(79, 159, 255, 0.15)',
+                        backdropFilter: 'blur(12px)'
+                      }}
                     >
                       {/* Row 1: Avatar + Handle + Role */}
                       <div className="flex items-center gap-3 mb-3">
                         <img
                           src={freelancerProfiles[currentProfileIndex].avatar}
                           alt={freelancerProfiles[currentProfileIndex].handle}
-                          className="w-10 h-10 rounded-full border-2 border-[#F7941D]"
+                          className="w-10 h-10 rounded-full border-2 border-primary"
                           data-avatar-src={freelancerProfiles[currentProfileIndex].avatarSrc}
                         />
                         <div className="flex-1">
-                          <div className="text-sm font-semibold text-white">
+                          <div className="text-sm font-semibold text-headline">
                             {freelancerProfiles[currentProfileIndex].handle}
                           </div>
-                          <div className="text-xs text-[#CCCCCC]">
+                          <div className="text-xs text-muted">
                             {freelancerProfiles[currentProfileIndex].role}
                           </div>
                         </div>
                       </div>
                       
                       {/* Row 2: Projects Completed */}
-                      <div className="flex items-center gap-2 mb-2 text-sm text-white">
-                        <div className="w-4 h-4 rounded-full bg-[#F7941D] flex items-center justify-center flex-shrink-0">
+                      <div className="flex items-center gap-2 mb-2 text-sm text-body">
+                        <div className="w-4 h-4 rounded-full bg-success flex items-center justify-center flex-shrink-0">
                           <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                           </svg>
@@ -447,13 +483,15 @@ const Hero = () => {
                       </div>
                       
                       {/* Row 3: Hourly Rate */}
-                      <div className="flex items-center gap-2 text-sm text-white">
-                        <div className="w-4 h-4 rounded-full bg-[#F7941D] flex items-center justify-center flex-shrink-0">
+                      <div className="flex items-center gap-2 text-sm text-body">
+                        <div className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0" style={{
+                          background: 'linear-gradient(135deg, #4F9FFF 0%, #7C83FD 100%)'
+                        }}>
                           <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
                         </div>
-                        <span className="font-semibold text-[#F7941D]">
+                        <span className="font-semibold text-primary">
                           ${freelancerProfiles[currentProfileIndex].rate} {t('hero.perHour')}
                         </span>
                       </div>
@@ -466,11 +504,16 @@ const Hero = () => {
                       <button
                         key={index}
                         onClick={() => setCurrentProfileIndex(index)}
-                        className={`w-1.5 h-1.5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#F7941D] focus:ring-offset-2 focus:ring-offset-transparent ${
+                        className={`w-1.5 h-1.5 rounded-full transition-all duration-smooth focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-transparent ${
                           index === currentProfileIndex 
-                            ? 'bg-[#F7941D] w-6' 
-                            : 'bg-gray-300 hover:bg-gray-400'
+                            ? 'w-6' 
+                            : 'bg-border hover:bg-primary/40'
                         }`}
+                        style={{
+                          background: index === currentProfileIndex 
+                            ? 'linear-gradient(135deg, #4F9FFF 0%, #7C83FD 100%)'
+                            : undefined
+                        }}
                         aria-label={`Go to profile ${index + 1}`}
                       />
                     ))}
